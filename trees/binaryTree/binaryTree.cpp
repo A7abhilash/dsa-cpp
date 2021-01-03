@@ -199,6 +199,24 @@ class BinaryTree{
             }
             cout<<"Node deleted with data: "<<data<<endl;
         }
+
+        int heightOfTree(node R){
+            if(R==NULL) return 0;
+            
+            int leftHeight=heightOfTree(R->left);
+            int rightHeight=heightOfTree(R->right);
+
+            if(leftHeight>rightHeight) return leftHeight+1;
+            return rightHeight+1;
+        }
+
+        void findHeight(){
+            if(root==NULL){
+                cout<<"Tree is empty\n";
+                return;
+            }
+            cout<<"Height of the tree is: "<<heightOfTree(root)-1<<endl;
+        }
 };
 
 int main(){
@@ -206,7 +224,7 @@ int main(){
     int choice;
 
     while(1){
-        cout<<"\n0.Exit\n1.Insert\n2.Display\n3.Search\n4.Delete\nEnter your choice:";
+        cout<<"\n0.Exit\n1.Insert\n2.Display\n3.Search\n4.Delete\n5.Find height\nEnter your choice:";
         cin>>choice;
 
         switch(choice){
@@ -215,6 +233,7 @@ int main(){
             case 2: BT.displayTree(); break;
             case 3: BT.search(); break;
             case 4: BT.deleteNode(); break;
+            case 5: BT.findHeight(); break;
             default: cout<<"Enter proper choice\n";
         }
     }
