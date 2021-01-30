@@ -1,326 +1,234 @@
 #include<iostream>
 using namespace std;
 
-/*  Create a node.
-    Create a Circular Linked List:
-        1.Check whether node exist or not
-        2.Appending a Node
-        3.Prepending a Node
-        4.Inserting a Node after a particular KEY
-        5.Deleting a node of a particular KEY
-        6.Updating a node of a particular KEY
-        7.Displaying our Doubly Linked Lists' Nodes
-*/
-
 class Node {
 	public:
-		int key;
 		int data;
 		Node* next;
 	
 		Node()
 		{
-			key=0;
 			data=0;
-			next=NULL;	
-		}
-		Node(int k,int d)
-		{
-			key=k;
-			data=d;
+			next=this;	
 		}
 };
 typedef Node* node;
 
 class CLL {
 	public:
-		node head;
+		node head=new Node();
 		
 		CLL()
 		{
-			head=NULL;
+			head->data=0;
+			head->next=head;
 		}
 		
-		//1.Check whetehr the node exists using key value.
-		node nodeExists(int k)
-		{
-			node temp=NULL;
-			node ptr=head;
-			
-			if(ptr==NULL)
-			{
-				return temp;
-			}
-			else
-			{
-				do
-				{
-					if(ptr->key==k)
-					{
-						temp=ptr;
-					}
-					ptr=ptr->next;
-					
-				}while(ptr!=head);
-			return temp;
-			}
+		void insertFront(){
+			node n =new Node();
+			cout<<"Enter the data to be inserted: ";
+			cin>>n->data;
+			n->next=head->next;
+			head->next=n;
+			head->data++;
+			cout<<"New node inserted at front!\n";
 		}
-		
-		//2.Append a node to the list.
-		void appendNode(node n)
-		{
-			if(nodeExists(n->key)!=NULL)
-			{
-				cout<<"Node already exists with the key value:"<<n->key<<". Append another Node with unique key value. \n";
-			}
-			else
-			{
-				if(head==NULL)
-				{
-					head=n;
-					n->next=head;
-					cout<<"Node Appended \n";
-				}
-				else
-				{
-					node ptr=head;
-				
-					while(ptr->next!=head)
-					{
-						ptr=ptr->next;
-					}
-					ptr->next=n;
-					n->next=head;
-					cout<<"Node Appended \n";
-				}
-			}
-		}
-		
-		//3.Prepend a Node to the list.
-		void prependNode(node n)
-		{
-			if(nodeExists(n->key)!=NULL)
-			{
-				cout<<"Node already exists with the key value:"<<n->key<<". Prepend another Node with unique key value. \n";
-			}
-			else
-			{
-				if(head==NULL)
-				{
-					head=n;
-					n->next=head;
-					cout<<"Node Appended \n";
-				}
-				else
-					{
-					node ptr=head;
-					
-					while(ptr->next!=head)
-					{
-						ptr=ptr->next;
-					}
-				
-					ptr->next=n;
-					n->next=head;
-					head=n;
-					cout<<"Node Prepended \n";
-					}
-			}
-		}
-		
-		//4.Insert a Node after a particular Key.
-		void insertNodeAfter(int k,node n)
-		{
-			node ptr=nodeExists(k);
-			
-			if(ptr==NULL)
-			{
-				cout<<"No Node exists with the key value:"<<k<<endl;
-			}
-			else
-			{
-				if(nodeExists(n->key)!=NULL)
-				{
-					cout<<"Node already exists with the key value:"<<n->key<<". Insert another Node with unique key value. \n";
-				}
-				else
-				{
-					if(ptr->next==head)
-					{
-						n->next=head;
-						ptr->next=n;
-						cout<<"Node Inserted at the end. \n";
-					}	
-					else
-					{
-						n->next=ptr->next;
-						ptr->next=n;
-						cout<<"Node Inserted in between.\n";
-					}
-				}
-			}
-		}
-		
-		//5.Delete a node of a particular Key.
-		void deleteNodeByKey(int k)
-		{
-			node ptr=nodeExists(k);
-			
-			if(ptr==NULL)
-			{
-				cout<<"No Node exists with the key value:"<<k<<endl;
-			}
-			else
-			{
-				//deleting first node;			
-				if(ptr==head)
-				{
-					if(head->next==NULL)
-					{
-						head=NULL;
-						cout<<"Node Unlinked... List is empty. \n";
-					}	
-					else
-					{
-						node ptr1=head;   //ptr1 is a temporary pointer of this else block.
-						
-						while(ptr1->next!=head)
-						{
-							ptr1=ptr1->next;
-						}
-						
-						ptr1->next=head->next;
-						head=head->next;
-						cout<<"Node Unlinked with the key value:"<<k<<endl;
-					}
-				}
-				//deleting any node other than first node;
-				else
-				{
-					node temp=NULL;
-					node prevptr=head;
-					node currentptr=head->next;
-					
-					while(currentptr!=NULL)
-					{
-						if(currentptr->key==k)
-						{
-							temp=currentptr;
-							currentptr=NULL;
-						}
-						else
-						{
-							prevptr=prevptr->next;
-							currentptr=currentptr->next;
-						}
-					}
-					
-					prevptr->next=temp->next;
-					cout<<"Node Unlinked with the key value:"<<k<<endl;
-				}
-			}
-		}
-		
-		//6.Update a Node of a particular Node.
-		void updateNodeByKey(int k,int d)
-		{
-			node ptr=nodeExists(k);
-			if(ptr!=NULL)
-			{
-				ptr->data=d;
-				cout<<"Node has been successfully Updated. \n";
-			}
-			else 
-			{
-				cout<<"Node doesnt exists with the key value:"<<k<<endl;
-			}
-		}
-		
-		//7.Display our Double Linked Lists' Nodes.
-		void printList()
-		{
-			if(head==NULL)
-			{
-				cout<<"List is empty. \n";
-			}
-			else
-			{
-				cout<<"\nHead address:"<<head<<endl;
-				cout<<"Circular Linked Lists' Nodes: \n";
-				
-				node temp=head;
-				
-				do
-				{
-					cout<<"("<<temp->key<<","<<temp->data<<","<<temp->next<<")-->";
+
+		void insertRear(){
+			node n =new Node();
+			cout<<"Enter the data to be inserted: ";
+			cin>>n->data;
+
+			if(head->data==0){
+				head->next=n;
+			}else{
+				node temp=head->next;
+				while(temp->next!=head){
 					temp=temp->next;
-				}while(temp!=head);
-				
-				cout<<endl;
+				}
+				temp->next=n;
 			}
+			n->next=head;
+			head->data++;
+			cout<<"New node inserted at rear!\n";
+		}
+
+		void insertByPosition(){
+			int position;
+			cout<<"Enter the postion of new node to be inserted: ";
+			cin>>position;
+
+			if(position>=1 && position<=head->data+1){
+				if(position==1) return insertFront();
+				if(position==head->data+1) return insertRear();
+				head->data++;
+				int count=1;
+				node n=new Node();
+				cout<<"Enter the data to be inserted: ";
+				cin>>n->data;
+
+				node temp=head->next, ptr=NULL;
+				while(count<position){
+					ptr=temp;
+					temp=temp->next;
+					count++;
+				}
+				ptr->next=n;
+				n->next=temp;
+				cout<<"New node inserted!\n";
+			}else{
+				cout<<"Invalid position!\n";
+			}
+		}
+
+		void deleteFront(){
+			if(head->data==0){
+				cout<<"List is empty\n";
+				return;
+			}
+
+			node temp=head->next;
+			cout<<"Front node deleted with data: "<<temp->data<<endl;
+			head->next=temp->next;
+			head->data--;
+			delete temp;
+		}
+
+		void deleteRear(){
+			if(head->data==0){
+				cout<<"List is empty\n";
+				return;
+			}
+
+			node temp=head->next;
+			if(temp->next==head){
+				head->next=head;
+			}else{
+				node ptr=NULL;
+				while(temp->next!=head){
+					ptr=temp;
+					temp=temp->next;
+				}
+				ptr->next=head;
+			}
+			cout<<"Rear node deleted with data: "<<temp->data<<endl;
+			head->data--;
+			delete temp;
+		}
+		
+		void deleteByPosition(){
+			if(head->data==0){
+				cout<<"List is empty\n";
+				return;
+			}
+
+			int position;
+			cout<<"Enter the postion of node to be deleted: ";
+			cin>>position;
+
+			if(position>=1 && position<=head->data){
+				if(position==1) return deleteFront();
+				if(position==head->data) return deleteRear();
+
+				head->data--;
+				int count=1;
+				node temp=head->next, ptr=NULL;
+				while(count<position){
+					ptr=temp;
+					temp=temp->next;
+					count++;
+				}
+				ptr->next=temp->next;
+				cout<<"Node deleted with data: "<<temp->data<<endl;
+				delete temp;
+			}else{
+				cout<<"Invalid position!\n";
+			}
+		}
+		
+		void searchNode(){
+			if(head->data==0){
+				cout<<"List is empty\n";
+				return;
+			}
+
+			int data,position=1;
+			cout<<"Enter the data to be searched: ";
+			cin>>data;
+
+			node temp=head->next;
+			while(temp!=head && temp->data!=data){
+				temp=temp->next;
+				position++;
+			}
+			if(temp==head){
+				cout<<"Node with data: "<<data<<" doesn't exist\n";
+			}else{
+				cout<<"Node with data: "<<data<<" exists at position: "<<position<<endl;;
+			}
+		}
+
+		void displayList(){
+			if(head->data==0){
+				cout<<"List is empty\n";
+				return;
+			}
+
+			cout<<"\nNo. of nodes in the list: "<<head->data<<endl;
+			node temp=head->next;
+			cout<<"head-->";
+			while(temp!=head){
+				cout<<temp->data<<"-->";
+				temp=temp->next;
+			}
+			cout<<"head\n";
 		}
 };
 	
-int main()
-{
-	CLL obj;
+int main(){
+	CLL C;
 	int option;
-	int key1,k1,data1;
 	
 	while(1)
     {
-        cout<<"\nSelect the operation to perform. Enter 0 to exit \n";
-        cout<<"1.Append Node \n";
-        cout<<"2.Prepend Node \n";
-        cout<<"3.Insert Node after a particular KEY \n";
-        cout<<"4.Delete Node of a particular KEY \n";
-        cout<<"5.Update node of a particular KEY \n";
-        cout<<"6.Display all Nodes \n";
+        cout<<"\n1.Insert Front \n";
+        cout<<"2.Insert Rear \n";
+        cout<<"3.Insert at a particular position \n";
+        cout<<"4.Delete Front \n";
+        cout<<"5.Delete Rear \n";
+        cout<<"6.Delete at a particular position \n";
+        cout<<"7.Search node of a particular data \n";
+        cout<<"8.Display list \n";
+        cout<<"\nSelect the operation to perform. Enter 0 to exit: ";
         
         cin>>option;
-        node n1=new Node();
-        
         switch(option)
-        {
-            case 0:exit(0);
-            case 1:
-                cout<<"\n Append Node Operation \nEnter key & data of the Node to be Appended \n";
-                cin>>key1>>data1;
-                n1->key=key1;
-                n1->data=data1;
-                obj.appendNode(n1);                                                
-                break;
-            case 2:
-                cout<<"\n Prepend Node Operation \nEnter key & data of the Node to be Prepended \n";
-                cin>>key1>>data1;
-                n1->key=key1;
-                n1->data=data1;
-                obj.prependNode(n1);     
-                break;
-            case 3:
-                cout<<"\n Insert Node Operation \n Enter the key value after which you want to insert new Node: \n";
-                cin>>k1;
-                cout<<"Enter the key & data of new node: \n";
-                cin>>key1>>data1;
-                n1->key=key1;
-                n1->data=data1;
-                obj.insertNodeAfter(k1,n1);
-                break;
-            case 4:
-                cout<<"\n Delete Node Operation \n Enter the key of node to be deleted: \n";
-                cin>>k1;
-                obj.deleteNodeByKey(k1);
-                break;
-            case 5:
-                cout<<"\n Update Node Operation \n Enter the key and new data to be updated: \n";
-                cin>>key1>>data1;
-                obj.updateNodeByKey(key1,data1);                
-                break;
-            case 6:
-                obj.printList();
-                break;
-            default: cout<<"\n Enter proper option \n";
-        }
-    }
+        {	
+            case 0: exit(0);
+			case 1: C.insertFront();
+					C.displayList(); 
+					break;
+			case 2: C.insertRear();
+					C.displayList(); 
+					break;
+			case 3: C.insertByPosition();
+					C.displayList(); 
+					break;
+			case 4: C.deleteFront();
+					C.displayList(); 
+					break;
+			case 5: C.deleteRear();
+					C.displayList(); 
+					break;
+			case 6: C.deleteByPosition();
+					C.displayList(); 
+					break;
+			case 7: C.searchNode();
+					C.displayList(); 
+					break;
+			case 8: C.displayList(); 
+					break;
+		}	
+	}
 	return 0;
 }	 
