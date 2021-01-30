@@ -2,4 +2,4 @@
 
 > Under coding mode.
 
-[Data Structures in C](https://github.com/A7abhilash/data-structures-C)
+[Data Structures in C](https://github.com/A7abhilash/dsa-C)
