@@ -29,11 +29,10 @@ int main(){
     char text[100],pattern[100];
 
 	cout << "Enter the text: ";
-	// cin >> text;
 	gets(text); 
 
 	cout << "Enter the pattern to be matched: ";
-	cin >> pattern;
+	gets(pattern); 
 
 	stringMatch(text,pattern);
 
